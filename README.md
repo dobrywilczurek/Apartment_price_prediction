@@ -19,3 +19,26 @@ The model is trained on synthetic data that reflects real market patterns: large
 - Pydantic - data validation
 - Uvicorn - ASGI server
 - Gunicorn - production server
+
+Local run (non-Docker)
+# 1. install requirements
+pip install -r requirements.txt
+
+# 2. start app
+uvicorn app:app --reload --port 8000
+
+App will be available at http://localhost:8000
+
+Run by Docker
+# 1. build image
+docker build -t apartment-price-api .
+
+# 2. start container
+docker run -d -p 8000:8000 --name my-api apartment-price-api
+
+Run by Docker Compose
+# 1. docker compose up
+docker-compose up -d
+
+To stop Docker Compose
+docker-compose down
