@@ -3,6 +3,10 @@ from pydantic import BaseModel, Field
 import numpy as np
 from sklearn.linear_model import LinearRegression
 import uvicorn
+import os
+
+API_KEY = os.getenv("API_KEY", "brak_klucza")
+DATABASE_URL = os.getenv("DATABASE_URL", "brak_bazy")
 
 # basic api
 app = FastAPI(
@@ -56,6 +60,13 @@ class HouseFeatures(BaseModel):
             }
         }
 
+@app.get("/config")
+def show_config():
+    return {
+        "api_key": API_KEY,
+        "database_url": DATABASE_URL,
+        "message": "Zmienne środowiskowe działają"
+    }
 
 @app.post("/predict")
 def predict(features: HouseFeatures):
